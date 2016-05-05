@@ -21,8 +21,9 @@ for (var i=0; i< 81; i++) {
 var row = document.createElement("div");
 	row.style.width = "100%";
 	row.style.paddingBottom = "20px";
-	row.style.background = "White";
+	row.style.background = "rgb(255,255,255)";
 	row.style.float = "left";
+	row.className = "row"
 body.appendChild(row);
 
 for (var i=0; i< 81; i++) {
@@ -42,15 +43,17 @@ var rowTwo = document.createElement("div");
 	rowTwo.style.paddingBottom = "20px";
 	rowTwo.style.background = "White";
 	rowTwo.style.float = "left";
+	rowTwo.className = "row"
 body.appendChild(rowTwo);
 
 
-var gradient = (1-(81/100))/2;
+var gradient = (19/100)/2;
 for (var i=0; i< 81; i++) {
 	var checkerPiece = document.createElement("div");
 	checkerPiece.style.width = "11.1%";
 	checkerPiece.style.float = "left";
 	checkerPiece.style.paddingBottom = "11.1%";
+	checkerPiece.className = "flash";
 	var randColorR = Math.floor(Math.random() * 255);
 	var randColorB = Math.floor(Math.random() * 255);
 	var randColorG = Math.floor(Math.random() * 255);
@@ -58,3 +61,24 @@ for (var i=0; i< 81; i++) {
 	checkerPiece.style.background = `rgba( ${randColorR}, ${randColorG}, ${randColorB}, ${gradient}`;
 	body.appendChild(checkerPiece);
 }
+
+var toFlash = document.getElementsByClassName("flash");
+
+function backToColor(i, currentColor) {
+	toFlash[i].style.background = currentColor;
+}
+
+function animate (toFlash) {
+	for (var i = 0; i < toFlash.length; i++) {
+		var currentColor = '';
+		currentColor = toFlash[i].style.background;
+		toFlash[i].style.background = "rgba(255,255,255,1)";
+		setTimeout(backToColor, 100, i, currentColor);
+	}
+}
+function flash () {
+	setInterval(animate,2000,toFlash);
+}
+
+flash();
+
